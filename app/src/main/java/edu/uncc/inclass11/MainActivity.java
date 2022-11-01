@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.LoginListener, SignUpFragment.SignUpListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginListener, SignUpFragment.SignUpListener, GradesFragment.GradesFragmentListener, AddCourseFragment.AddCourseFragmentListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,19 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     @Override
     public void login() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void addNewCourse() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.rootView, new AddCourseFragment(), "Add Course")
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void cancel() {
         getSupportFragmentManager().popBackStack();
     }
 }

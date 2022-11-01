@@ -1,5 +1,6 @@
 package edu.uncc.inclass11;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,12 +10,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 import edu.uncc.inclass11.databinding.FragmentAddCourseBinding;
 
 public class AddCourseFragment extends Fragment {
+
+    final String TAG = "test";
+    private FirebaseAuth mAuth;
+
     public AddCourseFragment() {
         // Required empty public constructor
     }
@@ -63,9 +74,78 @@ public class AddCourseFragment extends Fragment {
                         courseLetterGrade = "F";
                     }
 
+                    // FirebaseAuth Instance
+                    mAuth = FirebaseAuth.getInstance();
+
+                    // Get User
+                    FirebaseUser user = mAuth.getCurrentUser();
+
+                    // User's name
+                    String name = user.getDisplayName();
+
+                    // Add the Course
+                    addCourse(courseNumber, courseName, courseHours, courseLetterGrade, name);
+                    mListener.goToGrades();
                 }
             }
         });
 
+        binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.cancel();
+            }
+        });
+
+    }
+
+    /**
+     * This creates a new course given the data by the user
+     * @param courseNumber
+     * @param courseName
+     * @param courseHours
+     * @param courseLetterGrade
+     * @param name
+     */
+    private void addCourse(String courseNumber, String courseName, double courseHours,
+                           String courseLetterGrade, String name) {
+
+        // Create the course object
+        HashMap<String, Object> course = new HashMap<>();
+        course.put("course_grade", courseLetterGrade);
+        course.put("course_name", courseName);
+        course.put("course_number", courseNumber);
+        course.put("credit_hours", courseHours);
+        course.put("student_name", name);
+
+        // Database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Collection Reference
+        CollectionReference collRef = db.collection("grades");
+
+        // Create a new document and store it's id
+        String id = collRef.document().getId();
+
+        // Add the id to course being created
+        course.put("grade_id", id);
+
+        // Set the data to the created document
+        db.collection("grades").document(id).set(course);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof AddCourseFragmentListener) {
+            mListener = (AddCourseFragmentListener) context;
+        }
+    }
+
+    AddCourseFragmentListener mListener;
+
+    public interface AddCourseFragmentListener {
+        void cancel();
+        void goToGrades();
     }
 }
