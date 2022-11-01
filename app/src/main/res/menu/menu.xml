@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_plus_foreground"
         android:title="@string/action_add"
         app:showAsAction="ifRoom"/>
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/logout"
+        android:title="@string/logout"
+        app:showAsAction="never"/>
 </menu>

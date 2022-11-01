@@ -67,8 +67,13 @@ public class GradesFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:  {
-                // navigate to settings screen
+                // navigate to Add Course screen
                 mListener.addNewCourse();
+                return true;
+            }
+            case R.id.logout:   {
+                // Logout
+                mListener.logout();
                 return true;
             }
             default:
@@ -89,5 +94,6 @@ public class GradesFragment extends Fragment {
 
     public interface GradesFragmentListener {
         void addNewCourse();
+        void logout();
     }
 }
