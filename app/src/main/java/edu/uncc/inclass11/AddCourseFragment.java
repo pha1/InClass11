@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -85,7 +87,6 @@ public class AddCourseFragment extends Fragment {
 
                     // Add the Course
                     addCourse(courseNumber, courseName, courseHours, courseLetterGrade, name);
-                    mListener.goToGrades();
                 }
             }
         });
@@ -131,7 +132,20 @@ public class AddCourseFragment extends Fragment {
         course.put("grade_id", id);
 
         // Set the data to the created document
-        db.collection("grades").document(id).set(course);
+        db.collection("grades").document(id)
+                .set(course)
+                .addOnSuccessListener(getActivity(), new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        mListener.goToGrades();
+                    }
+                })
+                .addOnFailureListener(getActivity(), new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
