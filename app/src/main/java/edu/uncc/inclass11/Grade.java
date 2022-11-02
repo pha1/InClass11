@@ -9,10 +9,6 @@ public class Grade {
         return course_number;
     }
 
-    public String getCredit_hours() {
-        return credit_hours;
-    }
-
     public String getCourse_grade() {
         return course_grade;
     }
@@ -37,7 +33,12 @@ public class Grade {
                 '}';
     }
 
-    String course_name, course_number, credit_hours, course_grade, grade_id, student_id;
+    String course_name, course_number, course_grade, grade_id, student_id;
+    double credit_hours;
+
+    public double getCredit_hours() {
+        return credit_hours;
+    }
 
 
 }

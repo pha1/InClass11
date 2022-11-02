@@ -15,8 +15,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Get instance of Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
 
+        // Check if there is a user logged in
         if (mAuth.getCurrentUser() == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.rootView, new LoginFragment())
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         }
     }
 
+    /**
+     * Go to Create New Account from Login Page
+     */
     @Override
     public void createNewAccount() {
         getSupportFragmentManager().beginTransaction()
@@ -36,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 .commit();
     }
 
+    /**
+     * Go to Grades Fragment
+     */
     @Override
     public void goToGrades() {
         getSupportFragmentManager().beginTransaction()
@@ -43,11 +51,17 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 .commit();
     }
 
+    /**
+     * Go back to Login page from Sign up
+     */
     @Override
     public void login() {
         getSupportFragmentManager().popBackStack();
     }
 
+    /**
+     * Go to Add New Course Page
+     */
     @Override
     public void addNewCourse() {
         getSupportFragmentManager().beginTransaction()
@@ -56,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 .commit();
     }
 
+    /**
+     * Logout
+     */
     @Override
     public void logout() {
         FirebaseAuth.getInstance().signOut();
@@ -65,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 .commit();
     }
 
+    /**
+     * Cancel action
+     * Go back to previous page
+     */
     @Override
     public void cancel() {
         getSupportFragmentManager().popBackStack();

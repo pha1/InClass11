@@ -75,10 +75,9 @@ public class AddCourseFragment extends Fragment {
                     } else {
                         courseLetterGrade = "F";
                     }
-
                     // FirebaseAuth Instance
                     mAuth = FirebaseAuth.getInstance();
-
+                    // Get student id to add into document
                     String student_id = mAuth.getCurrentUser().getUid();
 
                     // Add the Course
@@ -113,7 +112,7 @@ public class AddCourseFragment extends Fragment {
         course.put("course_name", courseName);
         course.put("course_number", courseNumber);
         course.put("credit_hours", courseHours);
-        course.put("user_id", student_id);
+        course.put("student_id", student_id);
 
         // Database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
