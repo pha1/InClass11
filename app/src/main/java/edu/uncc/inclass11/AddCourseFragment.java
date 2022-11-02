@@ -79,14 +79,10 @@ public class AddCourseFragment extends Fragment {
                     // FirebaseAuth Instance
                     mAuth = FirebaseAuth.getInstance();
 
-                    // Get User
-                    FirebaseUser user = mAuth.getCurrentUser();
-
-                    // User's name
-                    String name = user.getDisplayName();
+                    String student_id = mAuth.getCurrentUser().getUid();
 
                     // Add the Course
-                    addCourse(courseNumber, courseName, courseHours, courseLetterGrade, name);
+                    addCourse(courseNumber, courseName, courseHours, courseLetterGrade, student_id);
                 }
             }
         });
@@ -106,10 +102,10 @@ public class AddCourseFragment extends Fragment {
      * @param courseName
      * @param courseHours
      * @param courseLetterGrade
-     * @param name
+     * @param student_id
      */
     private void addCourse(String courseNumber, String courseName, double courseHours,
-                           String courseLetterGrade, String name) {
+                           String courseLetterGrade, String student_id) {
 
         // Create the course object
         HashMap<String, Object> course = new HashMap<>();
@@ -117,7 +113,7 @@ public class AddCourseFragment extends Fragment {
         course.put("course_name", courseName);
         course.put("course_number", courseNumber);
         course.put("credit_hours", courseHours);
-        course.put("student_name", name);
+        course.put("user_id", student_id);
 
         // Database
         FirebaseFirestore db = FirebaseFirestore.getInstance();

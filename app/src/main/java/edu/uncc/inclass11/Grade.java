@@ -21,8 +21,8 @@ public class Grade {
         return grade_id;
     }
 
-    public String getStudent_name() {
-        return student_name;
+    public String getStudent_id() {
+        return student_id;
     }
 
     @Override
@@ -33,11 +33,11 @@ public class Grade {
                 ", credit_hours='" + credit_hours + '\'' +
                 ", course_grade='" + course_grade + '\'' +
                 ", grade_id='" + grade_id + '\'' +
-                ", student_name='" + student_name + '\'' +
+                ", student_name='" + student_id + '\'' +
                 '}';
     }
 
-    String course_name, course_number, credit_hours, course_grade, grade_id, student_name;
+    String course_name, course_number, credit_hours, course_grade, grade_id, student_id;
 
 
 }
