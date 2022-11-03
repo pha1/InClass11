@@ -1,3 +1,10 @@
+/**
+ * In Class 11
+ * GradesFragment.java
+ * Phi Ha
+ * Srinath Dittakavi
+ */
+
 package edu.uncc.inclass11;
 
 import android.content.Context;
@@ -97,8 +104,8 @@ public class GradesFragment extends Fragment {
                         }
                         adapter.notifyDataSetChanged();
 
-                        double gpa = 0.0;
-                        double hours = 0.0;
+                        double gpa;
+                        double hours;
                         double total_grade_points = 0.0;
                         double credit_points;
                         double total_hours = 0.0;
@@ -129,8 +136,13 @@ public class GradesFragment extends Fragment {
                             total_grade_points += hours * credit_points;
                             total_hours += hours;
                         }
+                        Log.d(TAG, "onEvent: " + mGrades.size());
+                        if (total_hours > 0.0){
+                            gpa = total_grade_points/total_hours;
+                        } else {
+                            gpa = 4.0;
+                        }
                         // GPA = Total Grade Points/Total Credit Hours
-                        gpa = total_grade_points/total_hours;
 
                         binding.textViewCreditHours.setText("Hours: " + total_hours);
                         binding.textViewGPA.setText("GPA: " + String.format("%.2f", gpa));

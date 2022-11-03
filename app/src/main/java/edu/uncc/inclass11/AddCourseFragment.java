@@ -1,3 +1,10 @@
+/**
+ * In Class 11
+ * AddCourseFragment.java
+ * Phi Ha
+ * Srinath Dittakavi
+ */
+
 package edu.uncc.inclass11;
 
 import android.content.Context;
@@ -58,9 +65,11 @@ public class AddCourseFragment extends Fragment {
                 double courseHours = Double.parseDouble(binding.editTextCourseHours.getText().toString());
                 int selectedId = binding.radioGroupGrades.getCheckedRadioButtonId();
 
-                if(courseName.isEmpty() || courseNumber.isEmpty() || binding.editTextCourseHours.getText().toString().isEmpty()) {
-                   Toast.makeText(getContext(), "Please enter all the fields", Toast.LENGTH_SHORT).show();
-                } else if(selectedId == -1){
+                if (courseName.isEmpty() || courseNumber.isEmpty() || binding.editTextCourseHours.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Please enter all the fields", Toast.LENGTH_SHORT).show();
+                }else if (courseHours < 0.0){
+                    Toast.makeText(getContext(), "Please enter a positive number", Toast.LENGTH_SHORT).show();
+                }else if(selectedId == -1){
                     Toast.makeText(getContext(), "Please select a letter grade !!", Toast.LENGTH_SHORT).show();
                 } else {
                     String courseLetterGrade;

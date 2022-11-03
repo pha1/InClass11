@@ -1,3 +1,10 @@
+/**
+ * In Class 11
+ * LoginFragment.java
+ * Phi Ha
+ * Srinath Dittakavi
+ */
+
 package edu.uncc.inclass11;
 
 import android.content.Context;
@@ -58,19 +65,24 @@ public class LoginFragment extends Fragment {
                 } else if (password.isEmpty()){
                     Toast.makeText(getActivity(), "Enter valid password!", Toast.LENGTH_SHORT).show();
                 } else {
+                    // Firebase Authentication
                     mAuth = FirebaseAuth.getInstance();
 
+                    // Sign In with email and password
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnSuccessListener(getActivity(), new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
                                     Log.d(TAG, "onSuccess: ");
+                                    // Go to Grades Fragment
                                     mListener.goToGrades();
                                 }
+                                // Log/Display message, if fail to sign in
                             }).addOnFailureListener(getActivity(), new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.d(TAG, "onFailure: " + e.getMessage());
+                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }

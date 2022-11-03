@@ -1,3 +1,10 @@
+/**
+ * In Class 11
+ * SignUpFragment.java
+ * Phi Ha
+ * Srinath Dittakavi
+ */
+
 package edu.uncc.inclass11;
 
 import android.content.Context;
@@ -86,6 +93,7 @@ public class SignUpFragment extends Fragment {
                                     Log.d(TAG, "onSuccess: ");
                                     mListener.goToGrades();
                                 }
+                                // Log/Display message, if creating an account failed
                             }).addOnFailureListener(getActivity(), new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {

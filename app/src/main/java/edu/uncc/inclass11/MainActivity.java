@@ -1,3 +1,10 @@
+/**
+ * In Class 11
+ * MainActivity.java
+ * Phi Ha
+ * Srinath Dittakavi
+ */
+
 package edu.uncc.inclass11;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +26,14 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mAuth = FirebaseAuth.getInstance();
 
         // Check if there is a user logged in
+        // If there is not go to Login Fragment
         if (mAuth.getCurrentUser() == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.rootView, new LoginFragment())
                     .commit();
-        } else {
+        }
+        // If there is a user logged in, go to Grades Fragment
+        else {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.rootView, new GradesFragment())
                     .commit();

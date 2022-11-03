@@ -1,3 +1,10 @@
+/**
+ * In Class 11
+ * Grade.java
+ * Phi Ha
+ * Srinath Dittakavi
+ */
+
 package edu.uncc.inclass11;
 
 public class Grade {
